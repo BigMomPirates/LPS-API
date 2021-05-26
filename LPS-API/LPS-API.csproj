@@ -5,5 +5,10 @@
     <RootNamespace>LPS_API</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.25" />
+    <PackageReference Include="System.Collections" Version="4.3.0" />
+  </ItemGroup>
+
 
 </Project>
