@@ -1,6 +1,6 @@
 namespace LpsApi
 {
-    public class InsertPlayer
+    public class UpsertPlayer
     {
         public string result { get; set; }
     }

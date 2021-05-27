@@ -8,17 +8,17 @@ namespace LpsApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InsertTeamController : ControllerBase
+    public class UpsertTeamController : ControllerBase
     {
-        private readonly ILogger<InsertTeamController> _logger;
+        private readonly ILogger<UpsertTeamController> _logger;
 
-        public InsertTeamController(ILogger<InsertTeamController> logger)
+        public UpsertTeamController(ILogger<UpsertTeamController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public InsertTeam Get(string name, string location, string title, string description, string color, string home, string logo_url, string grouppicture_url, string homepicture_url)
+        public UpsertTeam Get(string name, string location, string title, string description, string color, string home, string logo_url, string grouppicture_url, string homepicture_url)
         {
             string result = "OK";
 
@@ -30,7 +30,7 @@ namespace LpsApi.Controllers
                 MySqlCommand cmd = conn.CreateCommand();
 
                 cmd.CommandText =
-                    "INSERT INTO team (name, location, title, description, color, home, logo_url, grouppicture_url, homepicture_url) " +
+                    "REPLACE INTO team (name, location, title, description, color, home, logo_url, grouppicture_url, homepicture_url) " +
                     "VALUES(@name, @location, @title, @description, @color, @home, @logo_url, @grouppicture_url, @homepicture_url)";
 
                 cmd.Parameters.AddWithValue("@name", name);
@@ -50,7 +50,7 @@ namespace LpsApi.Controllers
                 result = e.Message;
             }
 
-            return new InsertTeam()
+            return new UpsertTeam()
             {
                 result = result
             };

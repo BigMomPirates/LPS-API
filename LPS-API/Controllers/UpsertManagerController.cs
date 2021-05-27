@@ -8,17 +8,17 @@ namespace LpsApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InsertManagerController : ControllerBase
+    public class UpsertManagerController : ControllerBase
     {
-        private readonly ILogger<InsertManagerController> _logger;
+        private readonly ILogger<UpsertManagerController> _logger;
 
-        public InsertManagerController(ILogger<InsertManagerController> logger)
+        public UpsertManagerController(ILogger<UpsertManagerController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public InsertManager Get(string name, string birthdate, string picture_url, string team_id)
+        public UpsertManager Get(string name, string birthdate, string picture_url, string team_id)
         {
             string result = "OK";
 
@@ -30,7 +30,7 @@ namespace LpsApi.Controllers
                 MySqlCommand cmd = conn.CreateCommand();
 
                 cmd.CommandText =
-                    "INSERT INTO manager (name, birthdate, picture_url, team_id) " +
+                    "REPLACE INTO manager (name, birthdate, picture_url, team_id) " +
                     "VALUES(@name, @birthdate, @picture_url, @team_id)";
 
                 cmd.Parameters.AddWithValue("@name", name);
@@ -45,7 +45,7 @@ namespace LpsApi.Controllers
                 result = e.Message;
             }
 
-            return new InsertManager()
+            return new UpsertManager()
             {
                 result = result
             };

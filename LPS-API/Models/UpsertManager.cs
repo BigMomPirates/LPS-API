@@ -1,6 +1,6 @@
 namespace LpsApi
 {
-    public class InsertTeam
+    public class UpsertManager
     {
         public string result { get; set; }
     }

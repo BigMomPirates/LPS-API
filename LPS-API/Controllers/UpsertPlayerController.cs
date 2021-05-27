@@ -8,17 +8,17 @@ namespace LpsApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class InsertPlayerController : ControllerBase
+    public class UpsertPlayerController : ControllerBase
     {
-        private readonly ILogger<InsertPlayerController> _logger;
+        private readonly ILogger<UpsertPlayerController> _logger;
 
-        public InsertPlayerController(ILogger<InsertPlayerController> logger)
+        public UpsertPlayerController(ILogger<UpsertPlayerController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public InsertPlayer Get(string name, string age, string birthdate, string position, string jersey_number, string height, string weight, string picture_url, string is_captain, string is_subcaptain, string team_id)
+        public UpsertPlayer Get(string name, string age, string birthdate, string position, string jersey_number, string height, string weight, string picture_url, string is_captain, string is_subcaptain, string team_id)
         {
             string result = "OK";
 
@@ -30,7 +30,7 @@ namespace LpsApi.Controllers
                 MySqlCommand cmd = conn.CreateCommand();
 
                 cmd.CommandText =
-                    "INSERT INTO team (name, age, birthdate, position, jersey_number, height, weight, picture_url, is_captain, is_subcaptain, team_id) " +
+                    "REPLACE INTO team (name, age, birthdate, position, jersey_number, height, weight, picture_url, is_captain, is_subcaptain, team_id) " +
                     "VALUES(@name, @age, @birthdate, @position, @jersey_number, @height, @weight, @picture_url, @is_captain, @is_subcaptain, @team_id)";
 
                 cmd.Parameters.AddWithValue("@name", name);
@@ -52,7 +52,7 @@ namespace LpsApi.Controllers
                 result = e.Message;
             }
 
-            return new InsertPlayer()
+            return new UpsertPlayer()
             {
                 result = result
             };
