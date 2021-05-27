@@ -18,9 +18,9 @@ namespace LpsApi.Controllers
         }
 
         [HttpGet]
-        public DeleteTeam Get(int id)
+        public DeleteTeam Get(string id)
         {
-            string result = "OK";
+            var deleteTeam = new DeleteTeam();
 
             try
             {
@@ -32,20 +32,14 @@ namespace LpsApi.Controllers
                 cmd.CommandText = "DELETE FROM team WHERE id = @id";
                 cmd.Parameters.AddWithValue("@id", id);
 
-                if (cmd.ExecuteNonQuery() == 0)
-                {
-                    throw new Exception("0 row affected");
-                }
+                deleteTeam.rows_affected = cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                result = e.Message;
+                deleteTeam.result = e.Message;
             }
 
-            return new DeleteTeam()
-            {
-                result = result
-            };
+            return deleteTeam;
         }
     }
 }

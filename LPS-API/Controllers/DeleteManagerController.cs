@@ -18,9 +18,9 @@ namespace LpsApi.Controllers
         }
 
         [HttpGet]
-        public DeleteManager Get(int id)
+        public DeleteManager Get(string id)
         {
-            string result = "OK";
+            var deleteManager = new DeleteManager();
 
             try
             {
@@ -32,20 +32,14 @@ namespace LpsApi.Controllers
                 cmd.CommandText = "DELETE FROM manager WHERE id = @id";
                 cmd.Parameters.AddWithValue("@id", id);
 
-                if (cmd.ExecuteNonQuery() == 0)
-                {
-                    throw new Exception("0 row affected");
-                }
+                deleteManager.rows_affected = cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                result = e.Message;
+                deleteManager.result = e.Message;
             }
 
-            return new DeleteManager()
-            {
-                result = result
-            };
+            return deleteManager;
         }
     }
 }
