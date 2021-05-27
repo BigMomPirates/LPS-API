@@ -12,15 +12,15 @@ namespace LPS_API
 
         public static void Main(string[] args)
         {
-            var DBConn = new Dictionary<string, string>();
+            var connArgs = new Dictionary<string, string>();
 
             try
             {
-                DBConn.Add("Server", args[0]);
-                DBConn.Add("Port", args[1]);
-                DBConn.Add("Database", args[2]);
-                DBConn.Add("Uid", args[3]);
-                DBConn.Add("Pwd", args[4]);
+                connArgs.Add("Server", args[0]);
+                connArgs.Add("Port", args[1]);
+                connArgs.Add("Database", args[2]);
+                connArgs.Add("Uid", args[3]);
+                connArgs.Add("Pwd", args[4]);
             }
             catch
             {
@@ -31,11 +31,11 @@ namespace LPS_API
                 return;
             }
 
-            DBConn.Add("CharSet", "utf8");
+            connArgs.Add("CharSet", "utf8");
             
-            foreach(KeyValuePair<string, string> DBConnParameter in DBConn)
+            foreach(KeyValuePair<string, string> connArg in connArgs)
             {
-                ConnString += string.Format("{0}={1};", DBConnParameter.Key, DBConnParameter.Value);
+                ConnString += string.Format("{0}={1};", connArg.Key, connArg.Value);
             }
 
             CreateHostBuilder(args).Build().Run();
