@@ -18,9 +18,9 @@ namespace LpsApi.Controllers
         }
 
         [HttpGet]
-        public UpsertPlayer Get(string name, string age, string birthdate, string position, string jersey_number, string height, string weight, string picture_url, string is_captain, string is_subcaptain, string team_id)
+        public UpsertPlayer Get(string team_id, string name, byte age, string birthdate, string position, string jersey_number, string height, string weight, string picture_url, string is_captain, string is_subcaptain)
         {
-            string result = "OK";
+            var upsertPlayer = new UpsertPlayer();
 
             try
             {
@@ -33,6 +33,7 @@ namespace LpsApi.Controllers
                     "REPLACE INTO team (name, age, birthdate, position, jersey_number, height, weight, picture_url, is_captain, is_subcaptain, team_id) " +
                     "VALUES(@name, @age, @birthdate, @position, @jersey_number, @height, @weight, @picture_url, @is_captain, @is_subcaptain, @team_id)";
 
+                cmd.Parameters.AddWithValue("@team_id", team_id);
                 cmd.Parameters.AddWithValue("@name", name);
                 cmd.Parameters.AddWithValue("@age", age);
                 cmd.Parameters.AddWithValue("@birthdate", birthdate);
@@ -43,19 +44,15 @@ namespace LpsApi.Controllers
                 cmd.Parameters.AddWithValue("@picture_url", picture_url);
                 cmd.Parameters.AddWithValue("@is_captain", is_captain);
                 cmd.Parameters.AddWithValue("@is_subcaptain", is_subcaptain);
-                cmd.Parameters.AddWithValue("@team_id", team_id);
 
-                cmd.ExecuteNonQuery();
+                upsertPlayer.rows_affected = cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                result = e.Message;
+                upsertPlayer.result = e.Message;
             }
 
-            return new UpsertPlayer()
-            {
-                result = result
-            };
+            return upsertPlayer;
         }
     }
 }

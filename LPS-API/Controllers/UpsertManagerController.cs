@@ -18,9 +18,9 @@ namespace LpsApi.Controllers
         }
 
         [HttpGet]
-        public UpsertManager Get(string name, string birthdate, string picture_url, string team_id)
+        public UpsertManager Get(string team_id, string name, string birthdate, string picture_url)
         {
-            string result = "OK";
+            var upsertManager = new UpsertManager();
 
             try
             {
@@ -33,22 +33,19 @@ namespace LpsApi.Controllers
                     "REPLACE INTO manager (name, birthdate, picture_url, team_id) " +
                     "VALUES(@name, @birthdate, @picture_url, @team_id)";
 
+                cmd.Parameters.AddWithValue("@team_id", team_id);
                 cmd.Parameters.AddWithValue("@name", name);
                 cmd.Parameters.AddWithValue("@birthdate", birthdate);
                 cmd.Parameters.AddWithValue("@picture_url", picture_url);
-                cmd.Parameters.AddWithValue("@team_id", team_id);
 
-                cmd.ExecuteNonQuery();
+                upsertManager.rows_affected = cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                result = e.Message;
+                upsertManager.result = e.Message;
             }
 
-            return new UpsertManager()
-            {
-                result = result
-            };
+            return upsertManager;
         }
     }
 }

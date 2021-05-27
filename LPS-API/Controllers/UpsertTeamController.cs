@@ -20,7 +20,7 @@ namespace LpsApi.Controllers
         [HttpGet]
         public UpsertTeam Get(string name, string location, string title, string description, string color, string home, string logo_url, string grouppicture_url, string homepicture_url)
         {
-            string result = "OK";
+            var upsertTeam = new UpsertTeam();
 
             try
             {
@@ -43,17 +43,14 @@ namespace LpsApi.Controllers
                 cmd.Parameters.AddWithValue("@grouppicture_url", grouppicture_url);
                 cmd.Parameters.AddWithValue("@homepicture_url", homepicture_url);
 
-                cmd.ExecuteNonQuery();
+                upsertTeam.rows_affected = cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                result = e.Message;
+                upsertTeam.result = e.Message;
             }
 
-            return new UpsertTeam()
-            {
-                result = result
-            };
+            return upsertTeam;
         }
     }
 }
