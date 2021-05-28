@@ -23,7 +23,7 @@
       "email"     : "zetafie125@gmail.com", 
       "name"      : "정영우",
       "password"  : "098f6bcd4621d373cade4e832627b4f6",
-      "birthdate" 1: "2003-02-28T00:00:00"
+      "birthdate" : "2003-02-28T00:00:00"
     }, ...
   ]
 }
