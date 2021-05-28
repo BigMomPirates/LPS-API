@@ -1,6 +1,6 @@
-namespace LpsApi
+namespace LPS_API
 {
-    public class UpsertManager
+    public class ReplaceTeam
     {
         public string result { get; set; } = "OK";
         public int rows_affected { get; set; }
