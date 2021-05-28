@@ -83,9 +83,9 @@
   "rows": 2
   "managers": [
     {
-      "account_email" : "yys671@naver.com", 
+      "account_email" : "zetafie125@gmail.com", 
       "team_name"     : "주월FC",
-      "picture_url"   : "https://imgur.com/8F23sc9.png"
+      "picture_url"   : "https://demaras.files.wordpress.com/2018/08/like-a-boss.jpg"
     }, ...
   ]
 }
@@ -113,14 +113,14 @@
   "rows": 2
   "managers": [
     {
-      "account_email" : "zetafie125@gmail.com"
+      "account_email" : "yys671@naver.com"
       "team_name"     : "주월FC"
       "position"      : "GK",
       "jersey_number" : 1,
-      "height"        : 180,
-      "weight"        : 110,
+      "height"        : 170,
+      "weight"        : 60,
       "is_captain"    : 1,
-      "picture_url"   : "https://demaras.files.wordpress.com/2018/08/like-a-boss.jpg"
+      "picture_url"   : "https://imgur.com/8F23sc9.png"
     }, ...
   ]
 }
