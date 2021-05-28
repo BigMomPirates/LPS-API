@@ -24,7 +24,15 @@ namespace LPS_API
                 {
                     index++;
 
-                    cmd.CommandText += string.Format("{0} = @{0}", arg.Key);
+                    if (arg.Key == "password")
+                    {
+                        cmd.CommandText += string.Format("{0} = md5(@{0})", arg.Key);
+                    }
+                    else
+                    {
+                        cmd.CommandText += string.Format("{0} = @{0}", arg.Key);
+                    }
+
                     cmd.Parameters.AddWithValue("@" + arg.Key, arg.Value);
 
                     if (index < args.Count)
