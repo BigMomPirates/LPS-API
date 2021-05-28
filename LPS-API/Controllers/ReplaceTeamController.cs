@@ -1,26 +1,25 @@
-﻿using LPS_API;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using System;
 
-namespace LpsApi.Controllers
+namespace LPS_API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UpsertTeamController : ControllerBase
+    public class ReplaceTeamController : ControllerBase
     {
-        private readonly ILogger<UpsertTeamController> _logger;
+        private readonly ILogger<ReplaceTeamController> _logger;
 
-        public UpsertTeamController(ILogger<UpsertTeamController> logger)
+        public ReplaceTeamController(ILogger<ReplaceTeamController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        public UpsertTeam Get(string name, string location, string title, string description, string color, string home, string logo_url, string grouppicture_url, string homepicture_url)
+        public ReplaceTeam Get(string name, string location, string title, string description, string color, string home, string logo_url, string grouppicture_url, string homepicture_url)
         {
-            var upsertTeam = new UpsertTeam();
+            var replaceTeam = new ReplaceTeam();
 
             try
             {
@@ -43,14 +42,14 @@ namespace LpsApi.Controllers
                 cmd.Parameters.AddWithValue("@grouppicture_url", grouppicture_url);
                 cmd.Parameters.AddWithValue("@homepicture_url", homepicture_url);
 
-                upsertTeam.rows_affected = cmd.ExecuteNonQuery();
+                replaceTeam.rows_affected = cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {
-                upsertTeam.result = e.Message;
+                replaceTeam.result = e.Message;
             }
 
-            return upsertTeam;
+            return replaceTeam;
         }
     }
 }
