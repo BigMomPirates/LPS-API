@@ -1,12 +1,11 @@
-﻿using LPS_API;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LpsApi.Controllers
+namespace LPS_API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -20,31 +19,31 @@ namespace LpsApi.Controllers
         }
 
         [HttpGet]
-        public GetTeam Get(string id, string name, string location, string title, string description, string color, string home, string logo_url, string grouppicture_url, string homepicture_url)
+        public GetTeam Get(string name, string location, string title, string description, string color, string home, string logo_url, string grouppicture_url, string homepicture_url)
         {
             var getTeam = new GetTeam();
             getTeam.teams = new List<Dictionary<string, object>>();
 
             try
             {
-                var args = new Dictionary<string, object>();
-                
-                args.Add("id", id);
-                args.Add("name", name);
-                args.Add("location", location);
-                args.Add("title", title);
-                args.Add("description", description);
-                args.Add("color", color);
-                args.Add("home", home);
-                args.Add("logo_url", logo_url);
-                args.Add("grouppicture_url", grouppicture_url);
-                args.Add("homepicture_url", homepicture_url);
-
                 using MySqlConnection conn = Program.GetMySqlConnection();
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT * FROM team";
+
+                var args = new Dictionary<string, object>()
+                {
+                    { "name", name },
+                    { "location", location },
+                    { "title", title },
+                    { "description", description },
+                    { "color", color },
+                    { "home", home },
+                    { "logo_url", logo_url },
+                    { "grouppicture_url", grouppicture_url },
+                    { "homepicture_url", homepicture_url },
+                };
                 cmd.AddWhereClause(args);
 
                 MySqlDataReader reader = cmd.ExecuteReader();

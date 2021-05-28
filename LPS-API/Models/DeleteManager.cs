@@ -1,4 +1,4 @@
-namespace LpsApi
+namespace LPS_API
 {
     public class DeleteManager
     {

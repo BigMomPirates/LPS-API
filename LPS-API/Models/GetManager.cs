@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace LpsApi
+namespace LPS_API
 {
     public class GetManager
     {

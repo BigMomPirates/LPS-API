@@ -1,10 +1,10 @@
-﻿using LPS_API;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections.Generic;
 
-namespace LpsApi.Controllers
+namespace LPS_API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -18,7 +18,7 @@ namespace LpsApi.Controllers
         }
 
         [HttpGet]
-        public DeletePlayer Get(string id)
+        public DeletePlayer Get(string account_email)
         {
             var deletePlayer = new DeletePlayer();
 
@@ -28,9 +28,13 @@ namespace LpsApi.Controllers
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
-
-                cmd.CommandText = "DELETE FROM player WHERE id = @id";
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.CommandText = "DELETE FROM player";
+                
+                var args = new Dictionary<string, object>()
+                {
+                    { "account_email", account_email }
+                };
+                cmd.AddWhereClause(args);
 
                 deletePlayer.rows_affected = cmd.ExecuteNonQuery();
             }

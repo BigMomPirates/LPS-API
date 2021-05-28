@@ -1,12 +1,11 @@
-﻿using LPS_API;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LpsApi.Controllers
+namespace LPS_API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -20,35 +19,31 @@ namespace LpsApi.Controllers
         }
 
         [HttpGet]
-        public GetPlayer Get(string id, string team_id, string name, string birthdate, string picture_url, string position, string jersey_number, string height, string weight, string is_captain, string is_subcaptain)
+        public GetPlayer Get(string account_email, string team_name, string position, string jersey_number, string height, string weight, string is_captain, string picture_url)
         {
             var GetPlayer = new GetPlayer();
             GetPlayer.players = new List<Dictionary<string, object>>();
 
             try
             {
-                var args = new Dictionary<string, object>();
-                
-                args.Add("id", id);
-                args.Add("team_id", team_id);
-                args.Add("name", name);
-                args.Add("birthdate", birthdate);
-                args.Add("picture_url", picture_url);
-                args.Add("position", position);
-                args.Add("jersey_number", jersey_number);
-                args.Add("height", height);
-                args.Add("weight", weight);
-                args.Add("is_captain", is_captain);
-                args.Add("is_subcaptain", is_subcaptain);
-
                 using MySqlConnection conn = Program.GetMySqlConnection();
                 conn.Open();
 
                 MySqlCommand cmd = conn.CreateCommand();
                 cmd.CommandText = "SELECT * FROM player";
-                cmd.AddWhereClause(args);
 
-                Console.WriteLine(cmd.CommandText);
+                var args = new Dictionary<string, object>()
+                {
+                    { "account_email", account_email },
+                    { "team_name", team_name },
+                    { "position", position },
+                    { "jersey_number", jersey_number },
+                    { "height", height },
+                    { "weight", weight },
+                    { "is_captain", is_captain },
+                    { "picture_url", picture_url },
+                };
+                cmd.AddWhereClause(args);
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
